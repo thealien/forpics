@@ -2,12 +2,11 @@
 
 $dev_ip = array('192.168.1.103', '10.64.80.246', '192.168.1.100');
 
-if(!in_array($_SERVER['REMOTE_ADDR'], $dev_ip)){
-	header('Location: http://forpics.ru');
-	exit();
-}
-
 if(strpos($_SERVER['SERVER_NAME'], 'dev.')===0){
+    if(!in_array($_SERVER['REMOTE_ADDR'], $dev_ip)){
+        header('Location: http://forpics.ru');
+        exit();
+    }
     ini_set('display_errors', 1);
     // Dev
     defined('YII_DEBUG') or define('YII_DEBUG',true);
