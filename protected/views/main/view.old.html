@@ -1,0 +1,32 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+{% include 'views/layouts/messages.html' %}
+{% for image in images %}
+<div class='detail'>
+	<a href='/i/{{ image.path_date }}/{{ image.filename }}' target='_blank'><img class='image' src='/i/{{ image.path_date }}/{{ image.filename }}' alt=''></a>
+	<br>
+	{{ image. width }} x {{ image.height }}, {{ image.filesize|format_filesize }}<br>
+	<div class='codes'>
+		<div class='image'>
+		<b>Прямой адрес:</b>
+		<input class='text' value='http://{{ Yii.params.domain }}/i/{{ image.path_date }}/{{ image.filename }}' readonly="readonly" onMouseOut="this.select(0,0);" onmouseover="this.select(0,0);" onClick="this.select(0,0);">
+		<b>BB-код:</b>
+        <input  class='text' value='[url=http://{{ Yii.params.domain }}/i/{{ image.path_date }}/{{ image.guid }}][img]http://{{ Yii.params.domain }}/i/{{ image.path_date }}/{{ image.filename }}[/img][/url]' readonly="readonly" onMouseOut="this.select(0,0);" onmouseover="this.select(0,0);" onClick="this.select(0,0);">
+		</div>
+		{% if image.preview %}
+		<br>
+		<div class='preview'>
+        <b>Прямой адрес эскиза:</b>
+        <input  class='text' value='http://{{ Yii.params.domain }}/p/{{ image.path_date }}/{{ image.filename }}' readonly="readonly" onMouseOut="this.select(0,0);" onmouseover="this.select(0,0);" onClick="this.select(0,0);">
+        <b>BB-код для эскиза:</b>
+        <input  class='text' value='[url=http://{{ Yii.params.domain }}/i/{{ image.path_date }}/{{ image.filename }}][img]http://{{ Yii.params.domain }}/p/{{ image.path_date }}/{{ image.filename }}[/img][/url]' readonly="readonly" onMouseOut="this.select(0,0);" onmouseover="this.select(0,0);" onClick="this.select(0,0);">
+        </div>
+		{% endif %}
+	</div>
+</div>
+{% if not loop.last %}
+<div style='border-bottom: solid 1px #ddd; margin: 20px auto; width: 85%;'></div>
+{% endif %}
+{% endfor %}
+{% endblock %}

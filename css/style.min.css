@@ -1,0 +1,38 @@
+a img{border:none;}
+a{color:#4083a9;outline:0;}
+p{display:block;vertical-align:middle;margin:0;padding:0;}
+.clear{clear:both;}
+.left{float:left;}
+.right{float:right;}
+form{line-height:1.5em;margin:0;padding:0;}
+h4{font-size:12px;line-height:1em;}
+h3{font-size:14px;line-height:1em;}
+h2{font-size:16px;line-height:1em;}
+h1{font-size:18px;line-height:1em;}
+html,body{line-height:1.5em;width:100%;height:100%;font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;font-size:12px;background:url(/images/bg.gif) #F4F4F4 repeat;color:#666;margin:0;padding:0;}
+#center{width:610px;border-radius:5px;border:solid 1px #ddd;box-shadow:0 0 5px rgba(0,0,0,0.1);background-color:#fff;margin:30px auto 0;}
+#content{color:#666;font-size:12px;margin:15px;}
+input.text{border:solid 1px #999;border-radius:3px;padding:3px;}
+span.inf{color:#333;font-size:17px;}
+span.arr{font-size:26px;font-weight:700;text-shadow:1px 1px 1px gray;}
+.detail img.image{border:solid 1px #136c91;border-radius:5px;max-height:300px;max-width:400px;padding:5px;}
+div.codes{font-size:12px;width:410px;text-align:left;margin:0 auto;}
+div.codes input{display:block;width:404px;cursor:text;zoom:1;margin:3px 0 10px;padding:4px;}
+div.codes div.image input{background-color:#EBF3F3;}
+div.codes div.preview input{background-color:#F3EBF3;}
+p.message{width:450px;background-color:#FFF2F2;border:solid 1px #FF6969;border-radius:3px;text-align:left;margin:15px auto;padding:5px;}
+div.detail.group a.poster_link{display:block;float:left;width:160px;margin-right:10px;margin-top:5px;text-decoration:none;text-align:center;}
+div.detail.group img.image{max-height:150px;max-width:150px;}
+div.detail.group div.codes{float:left;width:404px;}
+div.detail.group div.codes input{width:100%;}
+p.group-title{color:#136c91;font-size:15px;text-align:center;margin:15px 0;}
+#wrapper{position:relative;height:auto!important;min-height:100%;}
+#footer-padding{padding-bottom:115px;clear:both;}
+#footer{position:relative;margin-top:-101px;height:100px;border-top:solid 1px #ddd;background:#fff;}
+#footer-inner{width:900px;margin:10px auto;}
+#footer-inner a{color:#666;text-decoration:none;}
+#footer-inner a:hover{color:#4083a9;}
+#header{background-color:#999;border-bottom:double 2px #ddd;padding:10px 0;}
+#header-inner{width:900px;margin:0 auto;}
+#header-inner a.logolink{color:#fff;font-weight:700;text-decoration:none;font-size:26px;font-family:Terminal;}
+div.hr{border-bottom:solid 1px #ddd;width:85%;margin:20px auto;}

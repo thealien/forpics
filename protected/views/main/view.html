@@ -1,0 +1,83 @@
+{% extends "views/layouts/main.html" %}
+
+{% block head_menu_my %}
+<li class="menu-item">
+    <a href="/my/" class='current' title='Просмотр картинок, залитых мной'>Мои картинки</a>
+</li>
+{% endblock %}
+
+{% block add_js %}
+<script type='application/javascript'>
+$(function(){
+    $('div.codes input.text').bind('focus click mouseover', function(){
+        this.select(0,0);
+    });
+    $('p.group-title>input').bind('focus click mouseover', function(){
+        this.select(0,0);
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+{% include 'views/layouts/messages.html' %}
+{% if images[0].group and images[1] %}
+<p class='group-title'>
+    <b>Адрес группы картинок:</b> 
+    <input size='50' value='http://{{ Yii.params.domain }}/images/{{ images[0].path_date }}/{{ images[0].group }}' readonly="readonly">
+</p>
+{% endif %}
+
+{% for image in images %}
+<div class='detail group'>
+    <a href='/{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' target='_blank' class='poster_link'>
+    {% if image.preview %}
+    <img class='image' src='/{{ Yii.params.dirs.path_preview }}/{{ image.path_date }}/{{ image.filename }}' alt=''>
+    {% else %}
+    <img class='image' src='/{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' alt=''>
+    {% endif %}
+    <br>
+    {{ image. width }} x {{ image.height }}, {{ image.filesize|format_filesize }}
+    </a>
+    <div class='codes'>
+        <div class='image'>
+        <b>Прямой адрес:</b>
+        <input class='text' value='{{ Yii.params.url }}{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' readonly="readonly">
+        <b>BB-код:</b>
+        <input  class='text' value='[url={{ Yii.params.url }}{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}][img]{{ Yii.params.url }}{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}[/img][/url]' readonly="readonly">
+        </div>
+        {% if image.preview %}
+        <div class='preview'>
+        <b>Прямой адрес эскиза:</b>
+        <input  class='text' value='{{ Yii.params.url }}{{ Yii.params.dirs.path_preview }}/{{ image.path_date }}/{{ image.filename }}' readonly="readonly">
+        <b>BB-код для эскиза:</b>
+        <input  class='text' value='[url={{ Yii.params.url }}{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}][img]{{ Yii.params.url }}{{ Yii.params.dirs.path_preview }}/{{ image.path_date }}/{{ image.filename }}[/img][/url]' readonly="readonly">
+        </div>
+		{% if (not Yii.user.isGuest and Yii.user.id == image.uploaduserid) %}
+		<div>
+        <b>Адрес удаления картинки:</b>
+		<br>
+        <input class='text' style="display: inline; width:  330px;" value='{{ Yii.params.url }}delete/{{ image.path_date }}/{{ image.deleteGuid }}' readonly="readonly">
+		<form style='display: inline;' action="{{ this.createUrl("main/delete", {"path_date":image.path_date, "guid":image.deleteGuid }) }}" method="post" onsubmit="return confirm('Удалить?');">
+			<input type="submit" name="delete" value="удалить" style='display: inline;width: auto; cursor: pointer;'>
+		</form>
+		</div>
+		{% endif %}
+        {% endif %}
+    </div>
+    <div class='clear'></div>
+</div>
+{% if images[0].group and images[1] %}
+    {% set urls = urls ~ Yii.params.url ~ Yii.params.dirs.path_images ~'/' ~ image.path_date ~'/'~ image.filename %}
+    {% if not loop.last %}
+        {% set urls = urls ~ "\n" %}
+        <div class='hr'></div>
+    {% endif %}
+{% endif %}
+{% endfor %}
+
+{% if images[0].group and images[1] %}
+<div class='hr'></div>
+<textarea rows='10' style='width: 100%;'>{{ urls }}</textarea>
+{% endif %}
+{% endblock %}

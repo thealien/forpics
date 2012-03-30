@@ -1,0 +1,39 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+<h2 class='left'>{{ user.username }}</h2>
+<p class='right'>
+    изменить <a href='/user/email'>email</a> или <a href='/user/pass'>пароль</a>
+</p>
+<div class='clear'></div>
+<b>Статус:</b> <span>{{ user.role=="admin" ? "администратор" : "пользователь" }}</span>
+<br>    
+<div class='clear'></div>
+<br>
+<h3>Избранные сайты</a>:</h3>
+<p>
+    <b>Хостинги картинок <a class="rss_twitter_fb rss" target="_blank" href="/rss/"></a></b>
+</p>
+<p>
+    сайт 1 ***
+</p>
+<p>
+    сайт 2 ***
+</p>
+<br>
+<p>
+    <b>Портосайтеги <a class="rss_twitter_fb rss" target="_blank" href="/rss/"></a></b>
+</p>
+<p>
+    сайт 3 ***
+</p>
+<p>
+    сайт 4 ***
+</p>
+
+{#
+<form class='forms' action="" method="POST">
+    
+</form>
+#}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% if not(messages is empty) %}
+Во время загрузки произошли ошибки:
+<p class='message'>
+    {% for message in messages %}
+    <b>{{ loop.index }}.</b> {{ message|e }}
+    {% if not loop.last%}<br>{% endif %}
+    {% endfor %}
+</p>
+<div class='hr'></div>
+{% endif %}

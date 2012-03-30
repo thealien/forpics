@@ -1,0 +1,27 @@
+{% extends "views/layouts/main.html" %}
+
+{% block center %}
+<center><h1>Смена email<h1></center>
+<div class='forms' id='center' style='width: 380px'>
+{% if not changed %}
+<form action="" method="POST">
+    <p class='label'>Текущий email</p>
+    <p>
+        <input disabled="true" size='50' maxlength='256' title='Ваш текущий email'  type="text" value='{{ user.email|e }}'>
+    </p>
+    <br>
+    <p class='label'>Новый email</p>
+    <p>
+        <input size='50' maxlength='256' title='Укажите желаемый email'  type="text" name="email" value='{{ email|e }}'>
+    </p>
+    <br>
+    <div>
+        <input class='submit' type="submit" name="change_email" value="Сменить">
+    </div>
+    <div class='clear'></div>
+</form>
+{% else %}
+    Письмо с дальнейшими инструкциями по смене email выслано на <u>{{ user.email|e }}</u>.
+{% endif %}
+</div>
+{% endblock %}

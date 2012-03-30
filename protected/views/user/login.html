@@ -1,0 +1,26 @@
+{% extends "views/layouts/main.html" %}
+
+{% block center %}
+<center><h1>Вход на сайт<h1></center>
+<div class='forms' id='center' style='width: 380px'>
+<form action="" method="POST">
+    <p class='label'>Логин</p>
+    <p>
+        <input maxlength='50' size='50' title='Укажите имя пользователя' type="text" name="User[username]" value='{{ form.username|e }}'>
+    </p>
+    <br>
+    <p class='label'>Пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Укажите ваш пароль'  type="password" name="User[password]" value=''>
+    </p>
+    <br>
+    <p>
+        <input type='submit' name='loginbtn' value='Войти'>
+    </p>
+    <br>
+    <p>
+        Первый раз у нас? &mdash; <a href='/user/register/'>зарегистрируйтесь!</a> 
+    </p>
+</form>
+</div>
+{% endblock %}

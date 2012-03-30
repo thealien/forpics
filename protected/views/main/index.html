@@ -1,0 +1,32 @@
+{% extends "views/layouts/main.html" %}
+
+{% block head_menu_main %}
+<li class="menu-item">
+    <a href="/" class="current">Главная</a>
+</li>
+{% endblock %}
+
+{% block content %}
+{% include 'views/layouts/messages.html' %}
+    <div>
+        <form action='/up/' method='post' enctype='multipart/form-data'>
+        <input type="hidden" name="preview" id="preview" value='2'>
+        <h3>Выберите файлы:</h3>
+        <div>
+            <input required="required" class='file' type='file' name="uploadfile[]" multiple="multiple" accept="image/*" >
+            <input class='submit' type="submit" value='Загрузить'>
+        </div>
+        
+        <p>
+            <small>
+                Допустимые форматы: <b>.jpg</b>, <b>.gif</b> и <b>.png</b><br>
+                Максимальный размер одного файла: <b>3 мбайта</b>
+            </small>
+        </p>
+        <br><br>
+        Также вы можете <a title='FPUploader - поддерживает мультизагрузку, захват определенной области экрана и другие вкусности...' href='FPUploader.exe'>воспользоваться</a> 
+        удобным windows-клиентом.<br> 
+        <small>(последняя сборка - от 01.10.2011)</small>
+        </form>
+    </div>
+{% endblock %}

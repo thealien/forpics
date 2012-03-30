@@ -1,0 +1,33 @@
+{% extends "views/layouts/main.html" %}
+
+{% block head_menu_my %}
+<li class="menu-item">
+    <a href="/my/" class='current' title='Просмотр картинок, залитых мной'>Мои картинки</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<div class='detail group'>
+    <a href='/{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' target='_blank' class='poster_link'>
+    {% if image.preview %}
+    <img class='image' src='/{{ Yii.params.dirs.path_preview }}/{{ image.path_date }}/{{ image.filename }}' alt=''>
+    {% else %}
+    <img class='image' src='/{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' alt=''>
+    {% endif %}
+    <br>
+    {{ image. width }} x {{ image.height }}, {{ image.filesize|format_filesize }}
+    </a>
+    <div class='codes' style="text-align: center;">
+    	<h3>Подтверждение удаления картинки</h3>
+		<form action="" method="post">
+			<input name="delete" type='submit' value="Да, удалить" style="width: auto; display: inline; cursor: pointer;">
+			&nbsp;
+			или
+			&nbsp;
+            <a href='{{ this.createUrl("main/view", {"path_date":image.path_date, "guid":image.guid }) }}'>вернуться назад</a>
+		</form>
+    </div>
+    <div class='clear'></div>
+</div>
+{% endblock %}

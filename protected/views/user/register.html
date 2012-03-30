@@ -1,0 +1,54 @@
+{% extends "views/layouts/main.html" %}
+
+{% block center %}
+<center><h1>Регистрация<h1></center>
+<div class='forms' id='center' style='width: 380px'>
+{% if not register %}
+<form action="" method="POST">
+    <p class='label'>Логин</p>
+    <p>
+        <input maxlength='50' size='50' title='Укажите имя пользователя' type="text" name="User[username]" value='{{ form.attributes.username|e }}'>
+        <span class='error'>{{ form.errors.username[0] }}</span>
+    </p>
+    <br>
+    
+    <p class='label'>Пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Укажите желаемый пароль'  type="password" name="User[password]" value=''>
+        <span class='error'>{{ form.errors.password[0] }}</span>
+    </p>
+    <br>
+    
+    <p class='label'>Снова пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Повторите пароль'  type="password" name="User[password2]" value=''>
+        <span class='error'>{{ form.errors.password2[0] }}</span>
+    </p>
+    <br>
+    
+    <p class='label'>Электропочта</p>
+    <p>
+        <input size='50' maxlength='256' title='Укажите ваш email'  type="text" name="User[email]" value='{{ form.attributes.email|e }}'>
+        <span class='error'>{{ form.errors.email[0] }}</span>
+    </p>
+    <br>
+    <div>
+        <ul class='line'>
+        <li class='line-item'>{{ captcha }}</li>
+        <li class='line-item'>
+            <input class='icaptcha' maxlength='10' size='10' title='Введите код с картинки левее. Это нужно для того, чтобы подтвердить, что вы не робот ;)' type=text name="User[captcha]">
+            
+        </li>
+        <li class='line-item'>
+            <input class='submit' type="submit" name="regbtn" value='Зарегистрироваться'>
+        </li>
+        </ul>
+    </div>
+    <div class='clear'></div>
+    <span class='error'>{{ form.errors.captcha[0] }}</span>
+</form>
+{% else %}
+<h4>Вы успешно зарегистрировались. Теперь можете <a href='/user/login/'>войти</a>.</h4>
+{% endif %}
+</div>
+{% endblock %}

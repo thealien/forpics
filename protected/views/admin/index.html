@@ -1,0 +1,38 @@
+{% extends "views/admin/base.html" %}
+
+{% block head_menu_new %}
+<li class="menu-item">
+    <a class='current' href="/admin/">Новое</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class='my' style='margin-right: -18px;'>
+    <form action="" method="post">
+    {% for image in images %}
+    <div class="image">
+    <a href='/{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' target='_blank'>
+    {% if image.preview %}
+    <img class='image' src='/{{ Yii.params.dirs.path_preview }}/{{ image.path_date }}/{{ image.filename }}' alt=''>
+    {% else %}
+    <img class='image' src='/{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' alt=''>
+    {% endif %}
+	</a>
+	<div><small>{{ image.ip }}</small></div>
+	<div>
+	<input type="submit" name="delete[{{ image.id }}]" value='del' onclick="return confirm('Удалить?');">
+	</div>
+    </div>
+	<input type="hidden" name="images[]" value="{{ image.id }}">
+    {% else %}
+    Нет новых картинок
+    {% endfor %}
+	<br>
+	<input type="submit" name="approve" value='Утвердить'>
+	</form>
+</div>
+<br>
+<div class="paginator">
+    {{ this.widget("CLinkPager", {"pages":pages}, true) }}
+</div>
+{% endblock %}

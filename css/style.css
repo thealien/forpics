@@ -1,0 +1,423 @@
+/* глобальные фиксы */
+a img {
+    border: none;
+}
+
+a {
+    color: #4083a9;
+    outline: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+.inline{
+    display: inline;
+}
+form {
+    line-height: 1.5em;
+    margin: 0;
+    padding: 0;
+}
+h4 {
+    font-size: 12px;
+    line-height: 1em;
+}
+h3 {
+    font-size: 14px;
+    line-height: 1em;
+}
+h2{
+    font-size: 16px;
+    line-height: 1em;
+}
+h1{
+    font-size: 18px;
+    line-height: 1em;
+}
+html, body {
+    line-height: 1.5em;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-size: 12px;
+}
+/* ---------------- блоки ---------------- */
+#center {
+    width: 610px;
+    border-radius: 5px;
+    border: solid 1px #ddd;
+    margin: 30px auto 0 auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+#content {
+    margin: 15px;
+    color: #666666;
+    font-size: 12px;
+}
+
+input.text {
+    border: solid 1px #999;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+span.inf{
+    color: #333;
+    font-size: 17px;
+}
+span.arr{
+    font-size: 26px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px gray;
+}
+p{
+    display: block;
+    vertical-align: middle;
+}
+
+.detail img.image {
+    border:solid 1px #136c91;
+    border-radius: 5px;
+    padding: 5px;
+    max-height: 300px;
+    max-width: 400px;
+}
+
+div.codes{
+    font-size:12px;
+    width: 410px;
+    margin: 0 auto;
+    text-align: left;
+}
+div.codes input {
+    display: block;
+    width: 404px;
+    margin: 3px 0 10px 0;
+    padding: 4px;
+    cursor: text;
+    zoom:1;
+}
+div.codes div.image input {
+    background-color: #EBF3F3;
+}
+
+div.codes div.preview input {
+    background-color: #F3EBF3;
+}
+
+p.message{
+    width: 450px; 
+    margin: 15px auto;
+    background-color: #FFF2F2; 
+    border: solid 1px #FF6969; 
+    border-radius: 3px;
+    text-align: left;
+    padding: 5px
+}
+/* группа */
+div.detail.group {
+    
+}
+div.detail.group a.poster_link{
+    display: block;
+    float: left;
+    width: 160px;
+    margin-right: 10px;
+    margin-top: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+div.detail.group img.image{
+    max-height: 150px;
+    max-width: 150px;
+}
+div.detail.group div.codes{
+    float: left;
+    width: 404px;
+}
+div.detail.group div.codes input {
+    width: 100%;
+}
+
+p.group-title {
+    margin: 15px 0;
+    color: #136c91;
+    font-size: 15px;
+    text-align: center;
+}
+/* враппер */
+#wrapper {
+    position:relative;
+    height: auto !important;
+    height: 100%;
+    min-height: 100%;
+    background: url(/images/bg.gif) #F4F4F4 repeat;
+    color: #666;
+}
+/* плейсхолдер футера */
+#footer-padding {
+    padding-bottom:115px;
+    clear: both; 
+}
+
+/* футер */
+#footer {
+    position:relative;
+    margin-top: -101px;
+    height: 100px;
+    border-top: solid 1px #ddd;
+    background: #fff;
+}
+#footer-inner {
+    width: 900px;
+    margin: 10px auto;
+}
+#footer-inner a{
+    color: #666;
+    text-decoration: none;
+}
+#footer-inner a:hover{
+    color: #4083a9 ;
+}
+
+/* хеадер */
+#header {
+    background-color: #333;
+    border-bottom: double 2px #ddd;
+    background-image: url("/images/header_bg.jpg");
+    background-origin: padding-box;
+    background-position: 50% 0%;
+    height: 62px;
+}
+#header-inner {
+    width: 900px;
+    margin: 0 auto;
+    color: #fff;
+    padding-top: 18px;
+}
+#header-inner a.logolink{
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 26px;
+    font-family: Terminal;
+}
+/* прочерк /  горизонтальная черта */
+div.hr{
+    border-bottom: solid 1px #ddd; 
+    margin: 20px auto; 
+    width: 85%;
+}
+
+/* универсальная форма */
+.forms{
+    padding: 20px;
+    background-color: #f9f9f9;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari, Chrome */
+    -khtml-border-radius: 5px; /* KHTML */
+    border-radius: 5px; /* CSS3 */
+}
+.forms input, .forms textarea, .forms select {
+    padding: 10px;
+    color: #333;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+}
+
+.forms img {
+    border-radius: 3px;
+    border: solid 1px #ccc;
+}
+
+.forms input:focus, .forms textarea:focus, .forms select:focus {
+    border-color: #aaa;
+}
+
+.forms select {
+    line-height: 2em;
+}
+.forms p.label {
+    color: #333;
+    font-weight: 700;
+    line-height: 1.2em;
+}
+.forms span.error{
+    color: #FF4949;
+    font-size: 10px;
+}
+.forms ul.line {
+    display: inherit;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.forms li.line-item {
+    display: inherit;
+    float: left;
+    margin-right: 10px;
+}
+
+.forms input.icaptcha {
+    width: 80px;
+    height: 17px;
+    font-size: 18px;
+    color: gray;
+}
+
+/* меню в шапке */
+#head-menu {
+    padding: 0;
+    color: white;
+    list-style: none;
+    margin: 5px 0 0 20px;
+    float: left;
+}
+
+/* пункт меню */
+#head-menu li.menu-item {
+    display: inline;
+    margin-right: 15px;
+    
+}
+
+/* линк в меню */
+#head-menu a {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 3px 6px;
+    font-weight: 200;
+    font-size: 16px;
+}
+
+/* линк в меню текущего раздела/при напведении */
+#head-menu a.current, #head-menu a:hover {
+    color: #29b6ff;
+    /*color: #666;*/
+    /*background-color: white;*/
+    /*border-radius: 10px;*/
+}
+/* юзернейм в шапке */
+/* меню в шапке */
+#user-menu {
+    padding: 0;
+    color: white;
+    list-style: none;
+    margin: 5px 0 0 20px;
+    float: right;
+}
+
+/* пункт меню */
+#user-menu li.menu-item {
+    display: inline;
+    margin-right: 5px;
+    font-size: 11px;
+}
+
+/* линк в меню */
+#user-menu a {
+    color: #fff;
+    font-size: 12px;
+    text-decoration: none;
+    padding: 3px 6px;
+    font-weight: 700;
+}
+#user-menu .logout_btn{
+    vertical-align: middle;
+    border: solid 1px #fff;
+    background: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 10px;
+    line-height:1.3em;
+    cursor: pointer;
+
+}
+/* Yii пагинатор */
+div.paginator{
+	text-align: center;
+}
+ul.yiiPager {
+    border: none;
+    display: inline;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+ul.yiiPager li {
+    display: inline;
+}
+
+ul.yiiPager li.hidden {
+    visibility: hidden;
+}
+
+ul.yiiPager a {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 3px;
+    margin: 3px;
+    cursor: pointer;
+}
+
+ul.yiiPager li.selected a {
+    text-decoration: none;
+    cursor: default;
+}
+
+ul.yiiPager a:hover {
+    text-decoration: none;
+}
+
+ul.yiiPager .previous a, ul.yiiPager .next a {
+    font-size: 15px;
+    color: #7e7e7e;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+ul.yiiPager .first a, ul.yiiPager .last a {
+    font-size: 12px;
+    color: #a8a8a8;
+    font-weight: normal;
+}
+
+ul.yiiPager .first a:hover, ul.yiiPager .last a:hover, ul.yiiPager .previous a:hover, ul.yiiPager .next a:hover {
+    color: #0384E8;
+    text-decoration: none;
+}
+
+/*  */
+.my {
+	
+}
+.my div.image{
+	display: inline-block;
+	margin: 0 18px 10px 0;
+	width: 156px;
+}
+.my img.image{
+	padding: 2px;
+	max-width:150px;
+	
+}

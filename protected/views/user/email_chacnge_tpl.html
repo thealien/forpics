@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+    <meta http-equiv=Content-Type content="text/html; CHARSET=Windows-1251">
+    <title>Каталог сайтов SiteList &mdash; смена email</title>
+    </head>
+<body style="margin:0;padding:0;color:#454545;">
+<div>
+    C вашего аккаунта на <a href='http://sitelist.in/user/{{ user.username|e }}' target='_blank'>SiteList.in</a> поступил запрос на смену email.
+    <br><br>
+    <div style='font-size: 12px;'>
+    <b>Текущий email:</b> {{ user.email|e }}<br>
+    <b>Желаемый email:</b> {{ email|e }}<br>
+    </div>
+    <br>
+    Если вы этого не делали, просто проигнорируйте письмо.
+    <br>
+    <br>
+    В противном случае, для подтверждения смены email пройдите по <a href='http://sitelist.in/user/email/{{ hash|e }}'>ссылке</a>.<br>
+    <br>
+    -----------------<br>
+    C уважением,<br>
+    Администрация сайта <a href='http://sitelist.in' target='_blank'>SiteList.in</a>
+    
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "views/layouts/main.html" %}
+
+{% block add_css %}
+<!--[if lte IE 7]>
+<style type="text/css">
+.my div.image { 
+    display: inline;
+    zoom:1;
+}
+</style>
+<![endif]-->
+{% endblock %}
+
+{% block head_menu_my %}
+<li class="menu-item">
+    <a href="/my/" class='current' title='Просмотр картинок, залитых мной'>Мои картинки</a>
+</li>
+{% endblock %}
+
+{% block center %}
+<div id='center' class='forms' style='width: 870px;'>
+	<div class='my' style='margin-right: -18px;'>
+		
+		{% for image in images%}
+		<div class="image">
+		<a href='/image/{{ image.path_date }}/{{ image.guid }}' class='poster_link'>
+        {% if image.preview %}
+        <img class='image' src='/{{ Yii.params.dirs.path_preview }}/{{ image.path_date }}/{{ image.filename }}' alt=''>
+        {% else %}
+        <img class='image' src='/{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' alt=''>
+        {% endif %}
+		</a>
+        <br>
+		<a href='/{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}' target='_blank' class='poster_link'>
+        {{ image. width }} x {{ image.height }}, {{ image.filesize|format_filesize }}
+		</a>
+        </div>
+		{% else %}
+		У вас нет залитых картинок
+		{% endfor %}
+	</div>
+	<br>
+    <div class="paginator">
+        {{ this.widget("CLinkPager", {"pages":pages}, true) }}
+    </div>
+</div>
+{% endblock %}

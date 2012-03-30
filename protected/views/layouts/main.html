@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    {% block head %}
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Хостинг картинок - ForPics.ru">
+        <meta name="keywords" content="хостинг картинок, imagehost, forpics, фотохостинг, залить картинки бесплатно">
+        <meta name='yandex-verification' content='7c99fb65f58925cd' />
+        <title>
+        {{ Yii.params.title|e|default('Хостинг картинок - ForPics.ru') }}
+        </title>
+        {% block add_meta %}
+        {% endblock %}
+        <link href="/css/style.css?20111002" rel="stylesheet" type="text/css">
+		<link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" > 
+        {% block add_css %}
+        {% endblock %}
+        <script type='text/javascript' src='/js/extsrc.min.js?20110617'></script>
+        {% block add_head %}
+        {% endblock %}
+    </head>
+    {% endblock %}
+    
+    {% block body %}
+    <body>
+        <div id="wrapper"> 
+        <header>
+        <div id='header'>
+            <div id='header-inner'>
+            	{% if Yii.user.isAdmin %}
+                <a class='left' title='Перейти в Админку' class='logolink' href='/admin/'>
+                {% else %}
+				<a class='left' title='Перейти на главную' class='logolink' href='/'>
+				{% endif %}
+                    <img src='/images/logo.png' alt='Перейти на главную'>
+                </a>
+                
+                <ul id="head-menu">
+                	{% block head_menu_items%}
+                    {% block head_menu_main %}
+                    <li class="menu-item">
+                        <a href="/">Главная</a>
+                    </li>
+                    {% endblock %}
+                    {# % block head_menu_gallery %}
+                    <li class="menu-item">
+                        <a href="/gallery/" title='Галерея публичных картинок'>Галерея</a>
+                    </li>
+                    {% endblock % #}
+                    {% if not Yii.user.isGuest %}
+                    {% block head_menu_my %}
+                    <li class="menu-item">
+                        <a href="/my/" title='Просмотр картинок, залитых мной'>Мои картинки</a>
+                    </li>
+                    {% endblock %}
+                    {% endif %}
+					{% endblock %}
+                </ul>
+
+                
+                <ul id="user-menu">
+                    {% if not Yii.user.isGuest %}
+                    <li class="menu-item">
+                        Привет,
+                        <a href="/my/" class="current">{{ Yii.user.name|e }}</a>
+						{#
+						<a href="/user/" class="current">{{ Yii.user.name|e }}</a>
+						#}
+                    </li>
+                    <li class="menu-item">
+                        <form class='inline' action='/user/logout' method='post'>
+                            <button class='logout_btn' type="submit" name="logout[]" value="[выйти]" title="Выйти" onclick="return confirm('Действительно выйти?')">выйти</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="menu-item">
+                        <a href="/user/login/" class="current">Войти</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+                <div class='clear'></div>
+            </div>
+        </div>
+        </header>
+        
+        {% block center %}
+        <div id='center'>
+            <div id='content'>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        {% endblock %}
+        <div id='footer-padding'></div>
+        
+        </div>
+        
+        <footer>
+        <div id='footer'>
+            <div id='footer-inner'>
+                <p class='right'>
+                    <b><a href='/'>ForPics.ru &copy; 2011-2012</a></b>
+                    <br>
+                    <a href='http://forpics.microbloggy.ru' target='_blank' title='Официальная группа'>Блог проекта</a>
+                </p>
+                <p class='left'>
+                    <script extsrc="http://connect.facebook.net/ru_RU/all.js#xfbml=1" type='text/javascript'></script> <fb:like href="http://forpics.ru" layout="button_count" width="135" font="arial" style='margin-top:3px;'></fb:like>
+                </p>
+            </div>
+        </div>
+        </footer>
+        
+        <script type='text/javascript' src='/js/jquery-1.6.1.min.js?20110617'></script>
+        {% block add_js %}
+        
+        {% endblock %}
+
+        <!-- Yandex.Metrika counter -->
+		<div style="display:none;"><script type="text/javascript">
+		(function(w, c) {
+		    (w[c] = w[c] || []).push(function() {
+		        try {
+		            w.yaCounter7355734 = new Ya.Metrika({id:7355734, enableAll: true, webvisor:true});
+		        }
+		        catch(e) { }
+		    });
+		})(window, "yandex_metrika_callbacks");
+		</script></div>
+		<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+		<noscript><div><img src="//mc.yandex.ru/watch/7355734" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+		<!-- /Yandex.Metrika counter -->
+    </body>
+    {% endblock %}
+</html>
