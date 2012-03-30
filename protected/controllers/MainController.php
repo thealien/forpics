@@ -73,13 +73,14 @@ class MainController extends Controller
 			}
 		}
         $options = FPConfig::getUploadOptions();
-        $uploader = new Uploader( 
+        $uploader = new Uploader(
             Yii::app()->user->isGuest ? 0 : Yii::app()->user->id,
-            Yii::app()->imager,
             $options
         );
+        $uploader
+            ->setProcessor(Yii::app()->imager)
+            ->setValidator(Yii::app()->validator);
         
-        $res = array();
         $res = $uploader->tryUpload('uploadfile');
 
         $this->render('xml_result', array(
