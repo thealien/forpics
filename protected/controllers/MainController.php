@@ -83,11 +83,53 @@ class MainController extends Controller
         
         $res = $uploader->tryUpload('uploadfile');
 
-        $this->render('xml_result', array(
-            'files' => $res
-        ));
+        if(isset($_REQUEST['json'])){
+        	header('Content-Type: application/json; charset=utf-8');
+        	if(isset($_GET['callback'])){
+        		echo $_GET['callback'].'(';
+        	}
+            echo $this->getJsonResponse($res);
+			if(isset($_GET['callback']))
+                echo ')';
+        }   
+		else{
+			header("Content-type: text/xml; charset=utf-8");
+            $this->render('xml_result', array(
+                'files' => $res
+            ));	
+		}     
         exit();
     }
+	
+	protected function getJsonResponse($files){
+		$res = array();
+		foreach($files as $file){
+			$item = array();
+			if(isset($file['error']) && $file['error']){
+				$item['error'] = $file['error'];
+			}
+			else{
+				$item['url'] = sprintf('%s%s/%s/%s',
+				    Yii::app()->params['url'],
+					Yii::app()->params['dirs']['path_images'],
+					$file['path_date'], $file['filename']
+				);
+				$item['delurl'] = sprintf('%sdelete/%s/%s',
+                    Yii::app()->params['url'],
+                    $file['path_date'], $file['deleteGuid']
+                );
+				$item['width'] = $file['changed'] == '1' ? $file['nwidth'] : $file['width'];
+				$item['height'] = $file['changed'] == '1' ? $file['nheight'] : $file['height'];
+				$item['size'] = $file['changed'] == '1' ? $file['nfilesize'] : $file['filesize'];
+				$item['preview_url'] = $file['preview'] == '1' ? $file['previewurl'] : '';
+				$item['pwidth'] = $file['preview'] == '1' ? $file['pwidth'] : '';
+				$item['pheight'] = $file['preview'] == '1' ? $file['pheight'] : '';
+				$item['psize'] = $file['preview'] == '1' ? $file['pfilesize'] : '';
+			}
+			$res[] = $item;
+		}
+		return json_encode(array('files' => $res));
+	}
     /**
      * Просмотр картинки
      * @param string $path_date дата

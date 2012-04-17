@@ -8,7 +8,7 @@
 <url>{{ Yii.params.url }}{{ Yii.params.dirs.path_images }}/{{ f.path_date }}/{{ f.filename }}</url>
 <delurl>{{ Yii.params.url }}delete/{{ f.path_date }}/{{ f.deleteGuid }}</delurl>
 <width>{{ f.changed=='1' ? f.nwidth : f.width }}</width>
-<height>{{ f.changed=='1' ? f.height : f.height }}</height>
+<height>{{ f.changed=='1' ? f.nheight : f.height }}</height>
 <size>{{ f.changed=='1' ? f.nfilesize : f.filesize }}</size>
 <preview_url>{{ f.preview=='1' ? f.previewurl : '' }}</preview_url>
 <pwidth>{{ f.preview=='1' ? f.pwidth : '' }}</pwidth>
