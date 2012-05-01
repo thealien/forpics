@@ -1,6 +1,6 @@
 {% extends "views/layouts/main.html" %}
 
-{% block head_menu_my %}
+{% block head_menu_my %} 
 <li class="menu-item">
     <a href="/my/" class='current' title='Просмотр картинок, залитых мной'>Мои картинки</a>
 </li>
@@ -53,6 +53,7 @@ $(function(){
         <b>BB-код для эскиза:</b>
         <input  class='text' value='[url={{ Yii.params.url }}{{ Yii.params.dirs.path_images }}/{{ image.path_date }}/{{ image.filename }}][img]{{ Yii.params.url }}{{ Yii.params.dirs.path_preview }}/{{ image.path_date }}/{{ image.filename }}[/img][/url]' readonly="readonly">
         </div>
+		{% endif %}
 		{% if (not Yii.user.isGuest and Yii.user.id == image.uploaduserid) %}
 		<div>
         <b>Адрес удаления картинки:</b>
@@ -62,7 +63,6 @@ $(function(){
 			<input type="submit" name="delete" value="удалить" style='display: inline;width: auto; cursor: pointer;'>
 		</form>
 		</div>
-		{% endif %}
         {% endif %}
     </div>
     <div class='clear'></div>
