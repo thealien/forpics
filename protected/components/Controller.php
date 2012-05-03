@@ -11,7 +11,7 @@ class Controller extends CController
 	 */
 	public $layout='//layouts/column1';
 	
-	protected function beforeAction(CAction $action){
+	protected function beforeAction($action){
 		if(Yii::app()->request->getParam('theme') === 'm')
             Yii::app()->theme = 'mobile';
 		FPConfig::load();

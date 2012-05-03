@@ -2,7 +2,7 @@
 
 class AdminController extends Controller
 {
-    protected function beforeAction(CAction $action){
+    protected function beforeAction($action){
         if(Yii::app()->user->isGuest){
             throw new CHttpException(404);
         }
