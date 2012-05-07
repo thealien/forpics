@@ -29,7 +29,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface
     public function __construct($paths, $minimize = false)
     {
         $this->setPaths($paths);
-        $this->minimize = (bool)$minimize;
+		$this->minimize = (bool)$minimize;
     }
 
     /**
@@ -109,7 +109,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface
      */
     public function isFresh($name, $time)
     {
-        return filemtime($this->findTemplate($name)) < $time;
+        return filemtime($this->findTemplate($name)) <= $time;
     }
 
     protected function findTemplate($name)
@@ -153,7 +153,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface
         }
     }
 	
-	protected function minimizeSource($s){
+    protected function minimizeSource($s){
         $s = trim($s);
         if($s){
             $s = preg_replace('/<!--(.*?)-->/m', '', $s);

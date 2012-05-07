@@ -16,6 +16,7 @@ class Twig_Extension_Core extends Twig_Extension
 {
     protected $dateFormats = array('F j, Y H:i', '%d days');
     protected $numberFormat = array(0, '.', ',');
+    protected $timezone = null;
 
     /**
      * Sets the default format to be used by the date filter.
@@ -42,6 +43,26 @@ class Twig_Extension_Core extends Twig_Extension
     public function getDateFormat()
     {
         return $this->dateFormats;
+    }
+
+    /**
+     * Sets the default timezone to be used by the date filter.
+     *
+     * @param DateTimeZone|string $timezone  The default timezone string or a DateTimeZone object
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
+    }
+
+    /**
+     * Gets the default timezone to be used by the date filter.
+     *
+     * @return DateTimeZone The default timezone currently in use
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
     }
 
     /**
@@ -116,6 +137,7 @@ class Twig_Extension_Core extends Twig_Extension
             'upper'      => new Twig_Filter_Function('strtoupper'),
             'lower'      => new Twig_Filter_Function('strtolower'),
             'striptags'  => new Twig_Filter_Function('strip_tags'),
+            'trim'       => new Twig_Filter_Function('trim'),
             'nl2br'      => new Twig_Filter_Function('nl2br', array('pre_escape' => 'html', 'is_safe' => array('html'))),
 
             // array helpers
@@ -159,14 +181,14 @@ class Twig_Extension_Core extends Twig_Extension
             'constant' => new Twig_Function_Function('constant'),
             'cycle'    => new Twig_Function_Function('twig_cycle'),
             'random'   => new Twig_Function_Function('twig_random', array('needs_environment' => true)),
-            'date'     => new Twig_Function_Function('twig_date_converter'),
+            'date'     => new Twig_Function_Function('twig_date_converter', array('needs_environment' => true)),
         );
     }
 
     /**
-     * Returns a list of filters to add to the existing list.
+     * Returns a list of tests to add to the existing list.
      *
-     * @return array An array of filters
+     * @return array An array of tests
      */
     public function getTests()
     {
@@ -180,6 +202,7 @@ class Twig_Extension_Core extends Twig_Extension
             'divisibleby' => new Twig_Test_Node('Twig_Node_Expression_Test_Divisibleby'),
             'constant'    => new Twig_Test_Node('Twig_Node_Expression_Test_Constant'),
             'empty'       => new Twig_Test_Function('twig_test_empty'),
+            'iterable'    => new Twig_Test_Function('twig_test_iterable'),
         );
     }
 
@@ -285,11 +308,13 @@ function twig_cycle($values, $i)
 /**
  * Returns a random value depending on the supplied parameter type:
  * - a random item from a Traversable or array
- * - a random character from a string 
+ * - a random character from a string
  * - a random integer between 0 and the integer parameter
  *
  * @param Twig_Environment             $env    A Twig_Environment instance
  * @param Traversable|array|int|string $values The values to pick a random item from
+ *
+ * @throws Twig_Error_Runtime When $values is an empty array (does not apply to an empty string which is returned as is).
  *
  * @return mixed A random value from the given sequence
  */
@@ -306,6 +331,9 @@ function twig_random(Twig_Environment $env, $values = null)
     if ($values instanceof Traversable) {
         $values = iterator_to_array($values);
     } elseif (is_string($values)) {
+        if ('' === $values) {
+            return '';
+        }
         if (null !== $charset = $env->getCharset()) {
             if ('UTF-8' != $charset) {
                 $values = twig_convert_encoding($values, 'UTF-8', $charset);
@@ -358,10 +386,14 @@ function twig_date_format_filter(Twig_Environment $env, $date, $format = null, $
     }
 
     if ($date instanceof DateInterval || $date instanceof DateTime) {
+        if (null !== $timezone) {
+            $date->setTimezone($timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone));
+        }
+
         return $date->format($format);
     }
 
-    return twig_date_converter($date, $timezone)->format($format);
+    return twig_date_converter($env, $date, $timezone)->format($format);
 }
 
 /**
@@ -373,12 +405,13 @@ function twig_date_format_filter(Twig_Environment $env, $date, $format = null, $
  *    {% endif %}
  * </pre>
  *
+ * @param Twig_Environment    $env      A Twig_Environment instance
  * @param DateTime|string     $date     A date
  * @param DateTimeZone|string $timezone A timezone
  *
  * @return DateTime A DateTime instance
  */
-function twig_date_converter($date = null, $timezone = null)
+function twig_date_converter(Twig_Environment $env, $date = null, $timezone = null)
 {
     if ($date instanceof DateTime) {
         return $date;
@@ -399,6 +432,8 @@ function twig_date_converter($date = null, $timezone = null)
             $timezone = new DateTimeZone($timezone);
         }
 
+        $date->setTimezone($timezone);
+    } elseif (($timezone = $env->getExtension('core')->getTimezone()) instanceof DateTimeZone) {
         $date->setTimezone($timezone);
     }
 
@@ -530,30 +565,31 @@ function twig_array_merge($arr1, $arr2)
 /**
  * Slices a variable.
  *
- * @param Twig_Environment $env    A Twig_Environment instance
- * @param mixed            $item   A variable
- * @param integer          $start  Start of the slice
- * @param integer          $length Size of the slice
+ * @param Twig_Environment $env          A Twig_Environment instance
+ * @param mixed            $item         A variable
+ * @param integer          $start        Start of the slice
+ * @param integer          $length       Size of the slice
+ * @param Boolean          $preserveKeys Whether to preserve key or not (when the input is an array)
  *
  * @return mixed The sliced variable
  */
-function twig_slice(Twig_Environment $env, $item, $start, $length = null)
+function twig_slice(Twig_Environment $env, $item, $start, $length = null, $preserveKeys = false)
 {
     if ($item instanceof Traversable) {
         $item = iterator_to_array($item, false);
     }
 
     if (is_array($item)) {
-        return array_slice($item, $start, $length);
+        return array_slice($item, $start, $length, $preserveKeys);
     }
 
     $item = (string) $item;
 
     if (function_exists('mb_get_info') && null !== $charset = $env->getCharset()) {
-        return mb_substr($item, $start, $length, $charset);
+        return mb_substr($item, $start, null === $length ? mb_strlen($item, $charset) - $start : $length, $charset);
     }
 
-    return substr($item, $start, $length);
+    return null === $length ? substr($item, $start) : substr($item, $start, $length);
 }
 
 /**
@@ -684,6 +720,7 @@ function twig_in_filter($value, $compare)
         if (!strlen((string) $value)) {
             return empty($compare);
         }
+
         return false !== strpos($compare, (string) $value);
     } elseif (is_object($compare) && $compare instanceof Traversable) {
         return in_array($value, iterator_to_array($compare, false));
@@ -948,11 +985,11 @@ else
 /* used internally */
 function twig_ensure_traversable($seq)
 {
-    if (is_array($seq) || (is_object($seq) && $seq instanceof Traversable)) {
+    if ($seq instanceof Traversable || is_array($seq)) {
         return $seq;
-    } else {
-        return array();
     }
+
+    return array();
 }
 
 /**
@@ -974,5 +1011,25 @@ function twig_test_empty($value)
     if ($value instanceof Countable) {
         return 0 == count($value);
     }
+
     return false === $value || (empty($value) && '0' != $value);
+}
+
+/**
+ * Checks if a variable is traversable.
+ *
+ * <pre>
+ * {# evaluates to true if the foo variable is an array or a traversable object #}
+ * {% if foo is traversable %}
+ *     {# ... #}
+ * {% endif %}
+ * </pre>
+ *
+ * @param mixed $value A variable
+ *
+ * @return Boolean true if the value is traversable
+ */
+function twig_test_iterable($value)
+{
+    return $value instanceof Traversable || is_array($value);
 }
