@@ -85,7 +85,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface
      */
     public function getSource($name)
     {
-		$tmp = file_get_contents($this->findTemplate($name));
+        $tmp = file_get_contents($this->findTemplate($name));
         return $this->minimize ? $this->minimizeSource($tmp) : $tmp;
     }
 
@@ -153,7 +153,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface
         }
     }
 	
-    protected function minimizeSource($s){
+	protected function minimizeSource($s){
         $s = trim($s);
         if($s){
             $s = preg_replace('/<!--(.*?)-->/m', '', $s);
