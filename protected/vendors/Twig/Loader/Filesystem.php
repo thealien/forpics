@@ -73,13 +73,13 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface
             throw new Twig_Error_Loader(sprintf('The "%s" directory does not exist.', $path));
         }
 
-        $this->paths[] = $path;
+        $this->paths[] = rtrim($path, '/\\');
     }
 
     /**
      * Gets the source code of a template, given its name.
      *
-     * @param  string $name The name of the template to load
+     * @param string $name The name of the template to load
      *
      * @return string The template source code
      */
@@ -92,7 +92,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface
     /**
      * Gets the cache key to use for the cache for a given template name.
      *
-     * @param  string $name The name of the template to load
+     * @param string $name The name of the template to load
      *
      * @return string The cache key
      */
