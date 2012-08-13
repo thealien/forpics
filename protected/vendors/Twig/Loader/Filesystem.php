@@ -29,7 +29,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface
     public function __construct($paths, $minimize = false)
     {
         $this->setPaths($paths);
-		$this->minimize = (bool)$minimize;
+        $this->minimize = (bool)$minimize;
     }
 
     /**
